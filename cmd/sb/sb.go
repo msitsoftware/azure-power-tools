@@ -11,7 +11,7 @@ import (
 var SbCmd = &cobra.Command{
 	Use:   "sb",
 	Short: "use to interact with a Service Bus Namespace in Azure",
-	Long:  ``,
+	Long:  `With this command you can interact with a Service Bus Namespace in Azure.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},
