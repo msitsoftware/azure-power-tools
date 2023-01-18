@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Sebastian Meyer HERE sebastian.meyer@meyer-itconsulting.de
 */
 package sb
 
@@ -10,7 +10,7 @@ import (
 // sbCmd represents the sbctl command
 var SbCmd = &cobra.Command{
 	Use:   "sb",
-	Short: "Interact with a Service Bus Namespace in Azure",
+	Short: "use to interact with a Service Bus Namespace in Azure",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
@@ -18,14 +18,4 @@ var SbCmd = &cobra.Command{
 }
 
 func init() {
-	
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// sbctlCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// sbctlCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

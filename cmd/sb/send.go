@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Sebastian Meyer HERE sebastian.meyer@meyer-itconsulting.de
 */
 package sb
 
@@ -13,10 +13,10 @@ import (
 // sendCmd represents the send command
 var sendCmd = &cobra.Command{
 	Use:   "send",
-	Short: "sends a message to a queue",
-	Long:  ``,
+	Short: "send a message to a queue",
+	Long:  `example: sb send -c <connectionstring> -q <queue> -m <message>`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		send()
 	},
 }
 
@@ -24,19 +24,25 @@ var (
 	connectionstring string
 	queue            string
 	message          string
+	contentType string
 )
 
 func init() {
 
 	sendCmd.Flags().StringVarP(&connectionstring, "connectionstring", "c", "", "The connection string to the Service Bus Namespace")
 	sendCmd.Flags().StringVarP(&queue, "queue", "q", "", "The name of the queue to send the message to")
-	sendCmd.Flags().StringVarP(&message, "message", "m", "", "The message to send to the queue")
+	sendCmd.Flags().StringVarP(&message, "message", "m", "", "The message to send to the queue. '{\"key\":\"value\"}'")
+	sendCmd.Flags().StringVarP(&contentType, "contenttype", "t", "application/json", "The content type of the message.")
 
 	if err := sendCmd.MarkFlagRequired("connectionstring"); err != nil {
 		panic(err)
 	}
 
 	if err := sendCmd.MarkFlagRequired("queue"); err != nil {
+		panic(err)
+	}
+
+	if err := sendCmd.MarkFlagRequired("message"); err != nil {
 		panic(err)
 	}
 
@@ -56,7 +62,6 @@ func send() {
 	}
 
 	sbMessage := &azservicebus.Message{Body: []byte(message)}
-	contentType := "application/json"
 	sbMessage.ContentType = &contentType
 
 	err = sender.SendMessage(context.TODO(), sbMessage, nil)
